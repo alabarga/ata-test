@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=20
+#SBATCH --mem-per-cpu=5000
+#SBATCH --workdir=%%WORKDIR%%
+#SBATCH --time=02:00:00
+#SBATCH --job-name=featureCounts
+#SBATCH --error=featureCounts_%j.err
+#SBATCH --output=featureCounts_%j.out
+
+
+module load subread-1.6.0-gcc-6.4.0-wkln6uj;
+GTF_REF='/datos/reference.genomes/Homo_sapiens.GRCh37.75.gtf'
+featureCounts -Q 10 -T 20 -a $GTF_REF -o ${short_name}.featureCounts.matrix.txt *bam

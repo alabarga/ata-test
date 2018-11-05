@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=5000
+#SBATCH --workdir=%%WORKDIR%%
+#SBATCH --time=02:00:00
+#SBATCH --job-name=STARalign
+#SBATCH --error=star.align_%j.err
+#SBATCH --output=star.align_%j.out
+
+module load star-2.5.3a-gcc-4.9.4-vojlnhd;
+module load picard-2.17.0-gcc-4.9.4-raa3w4s;
+FASTA_REF='/datos/reference.genomes/star.human_g1k_v37.indexes';
+
+STAR --runThreadN 8 --genomeDir $FASTA_REF --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --outFileNamePrefix "${short_name}." --readFilesIn $input_file ;
+samtools index "${short_name}.Aligned.sortedByCoord.out.bam";
+
+picard MarkDuplicates I="${short_name}.Aligned.sortedByCoord.out.bam" O="${short_name}.dedup.bam" M=${output_file_dedup}.marked_dup_metrics.txt;
+samtools index "${short_name}.dedup.bam";
+
