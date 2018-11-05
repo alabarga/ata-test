@@ -1,0 +1,96 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A3C2AF5-A77C-406C-8B3A-3A9A6DBDEF09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Integromics.RClient</RootNamespace>
+    <AssemblyName>Integromics.RClient</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Integromics.DXP.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deployment|AnyCPU' ">
+    <OutputPath>bin\Deployment\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Integromics.StatConnectorClnt, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a47248ea70aa7ca4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Integromics.StatConnectorClnt.dll</HintPath>
+    </Reference>
+    <Reference Include="Integromics.StatConnectorLib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a47248ea70aa7ca4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Integromics.StatConnectorLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Integromics.StatConnectorSrv, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a47248ea70aa7ca4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Integromics.StatConnectorSrv.dll</HintPath>
+    </Reference>
+    <Reference Include="Integromics.StatConnLib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a47248ea70aa7ca4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Integromics.StatConnLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Spotfire.Dxp.Application, Version=3.7.3037.26111, Culture=neutral, PublicKeyToken=789861576bd64dc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Spotfire.Dxp.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="Spotfire.Dxp.Data, Version=3.7.3037.26111, Culture=neutral, PublicKeyToken=789861576bd64dc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Spotfire.Dxp.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spotfire.Dxp.Framework, Version=3.7.3037.26111, Culture=neutral, PublicKeyToken=789861576bd64dc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\Spotfire.Dxp.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="StatConnectorCommonLib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=a47248ea70aa7ca4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\StatConnectorCommonLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RClient.cs" />
+    <Compile Include="TempFilesPool.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Integromics.DXP.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) "C:\Program Files\TIBCO\Spotfire\2.1" /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>
